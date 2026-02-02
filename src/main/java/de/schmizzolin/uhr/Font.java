@@ -17,16 +17,16 @@ public class Font {
             x   x
             x x x
             """, """
-              x
-            x x
-              x
-              x
+              x .
+            x x .
+              x .
+              x .
             x x x
             """, """
             x x x
                 x
-              x
-            X
+              x .
+            x . . 
             x x x
             """, """
             x x x
@@ -42,22 +42,22 @@ public class Font {
                 x
             """, """
             x x x
-            x
+            x . .
             x x x
                 x
             x x x
             """, """
             x x x
-            x
+            x . .
             x x x
             x   x
             x x x
             """, """
             x x x
                 x
-              x
-              x
-              x
+              x .
+              x .
+              x .
             """, """
             x x x
             x   x
@@ -73,10 +73,19 @@ public class Font {
             """
     };
 
+    private static final String COLON = """
+            . . .
+            . x .
+            . . .
+            . x .
+            . . .
+            """;
+
     public static Font create() {
         Font font = new Font(Color.BLUE, 20, 2, 8);
+        font.add(':', COLON);
         for (int i = 0; i < DIGITS.length; i++) {
-            font.maps.put((char) ('0' + i), DIGITS[i]);
+            font.add((char) ('0' + i), DIGITS[i]);
         }
         return font;
     }
@@ -93,6 +102,32 @@ public class Font {
         this.dotWidth = dotWidth;
         this.dotSpace = dotSpace;
         this.charSpace = charSpace;
+    }
+
+    public void add(char character, String matrix) {
+        maps.put(character, check(matrix));
+    }
+
+    private static final int HEIGHT = 5;
+    private static final int WIDTH = 3;
+
+    private static String check(String matrix) {
+        String[] lines = matrix.split("\n");
+        if (lines.length != HEIGHT) {
+            throw new IllegalArgumentException("height: " + lines.length);
+        }
+        for (String line : lines) {
+            if (line.length() != WIDTH * 2 - 1) {
+                throw new IllegalArgumentException("width: " + line.length());
+            }
+            for (int i = 0; i < line.length(); i += 2) {
+                var c = line.charAt(i);
+                if (c != 'x' && c != ' ' && c != '.') {
+                    throw new IllegalArgumentException("invalid char: " + c);
+                }
+            }
+        }
+        return matrix;
     }
 
     public Pane render(String str) {
@@ -117,7 +152,7 @@ public class Font {
                 if (c == 'x') {
                     Rectangle rect = new Rectangle(dotWidth, dotWidth, color);
                     hbox.getChildren().add(rect);
-                } else if (c == ' ') {
+                } else if (c == ' ' || c == '.') {
                     Rectangle rect = new Rectangle(dotWidth, dotWidth, Color.TRANSPARENT);
                     hbox.getChildren().add(rect);
                 }

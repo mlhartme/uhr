@@ -8,7 +8,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         Font font = Font.create();
-        Scene scene = new Scene(font.render("4711"), 300, 200);
+        Scene scene = new Scene(font.render("17:23"), 300, 200);
         primaryStage.setTitle("Uhr");
         primaryStage.setScene(scene);
         primaryStage.show();
