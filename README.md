@@ -24,8 +24,8 @@ and from IntelliJ IDEA with VM options
 
 ## TODO
 
-* fancy name
 * hide title bar
 * resize with fixed aspect ratio
 * beautify dots
 * animate
+* fancy name

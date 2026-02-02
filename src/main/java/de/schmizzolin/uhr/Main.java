@@ -17,6 +17,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setAlwaysOnTop(true);
+        stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
         stage.show();
 
         javafx.animation.Timeline timeline = new javafx.animation.Timeline(
