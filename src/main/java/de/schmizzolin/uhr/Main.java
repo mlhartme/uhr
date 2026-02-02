@@ -9,14 +9,26 @@ import java.util.Locale;
 
 public class Main extends Application {
     @Override
-    public void start(Stage primaryStage) {
-        LocalTime time = LocalTime.now();
+    public void start(Stage stage) {
         Font font = Font.create();
-        String str = String.format(Locale.GERMAN, "%02d:%02d", time.getHour(), time.getMinute());
-        Scene scene = new Scene(font.render(str), 300, 200);
-        primaryStage.setTitle("Uhr");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        javafx.scene.layout.StackPane root = new javafx.scene.layout.StackPane();
+        Scene scene = new Scene(root, 360, 120);
+        stage.setTitle("Uhr");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setAlwaysOnTop(true);
+        stage.show();
+
+        javafx.animation.Timeline timeline = new javafx.animation.Timeline(
+                new javafx.animation.KeyFrame(javafx.util.Duration.seconds(0), e -> {
+                    LocalTime time = LocalTime.now();
+                    String str = String.format(Locale.GERMAN, "%02d:%02d", time.getHour(), time.getMinute());
+                    root.getChildren().setAll(font.render(str));
+                }),
+                new javafx.animation.KeyFrame(javafx.util.Duration.seconds(1))
+        );
+        timeline.setCycleCount(javafx.animation.Animation.INDEFINITE);
+        timeline.play();
     }
 
     public static void main(String[] args) {

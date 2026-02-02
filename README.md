@@ -21,3 +21,11 @@ from shell with
 and from IntelliJ IDEA with VM options
 
     --module-path $JAVA_FX_HOME/lib --add-modules javafx.controls,javafx.fxml
+
+## TODO
+
+* fancy name
+* hide title bar
+* resize with fixed aspect ratio
+* beautify dots
+* animate
