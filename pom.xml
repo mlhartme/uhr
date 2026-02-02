@@ -19,8 +19,6 @@
       <name>Michael Hartmeier</name>
       <id>mlhartme</id>
       <url>http://github.com/mlhartme/</url>
-      <organization>1 &amp; 1 Internet AG</organization>
-      <organizationUrl>https://github.com/1and1</organizationUrl>
       <roles>
         <role>developer</role>
       </roles>
@@ -52,6 +50,25 @@
         <configuration>
           <mainClass>de.schmizzolin.uhr.Main</mainClass>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>net.oneandone.maven.plugins</groupId>
+        <artifactId>application</artifactId>
+        <version>1.8.2</version>
+        <configuration>
+          <name>uhr</name>
+          <main>de.schmizzolin.uhr.Main</main>
+          <options>"--module-path $JAVA_FX_HOME/lib --add-modules javafx.controls,javafx.fxml"</options>
+          <overwrite>META-INF/substrate/config/*.json, META-INF/substrate/config/resourcebundles</overwrite>
+          <remove>module-info.class</remove>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
