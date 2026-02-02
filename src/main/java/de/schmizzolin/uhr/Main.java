@@ -2,15 +2,18 @@ package de.schmizzolin.uhr;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
-        Label helloLabel = new Label("Hello World");
-        Scene scene = new Scene(helloLabel, 300, 200);
-        primaryStage.setTitle("JavaFX Hello World");
+        Rectangle square = new Rectangle(10, 10, Color.DODGERBLUE);
+        StackPane root = new StackPane(square);
+        Scene scene = new Scene(root, 300, 200);
+        primaryStage.setTitle("Uhr");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
