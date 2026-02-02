@@ -9,18 +9,76 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    private static final String MATRIX = """
+    private static final String[] DIGITS = { """
             x x x
-             x x
+            x   x
+            x   x
+            x   x
+            x x x
+            """, """
               x
-            """;
+            x x
+              x
+              x
+            x x x
+            """, """
+            x x x
+                x
+              x
+            X
+            x x x
+            """, """
+            x x x
+                x
+              x x
+                x
+            x x x
+            """, """
+            x   x
+            x   x
+            x x x
+                x
+                x
+            """, """
+            x x x
+            x
+            x x x
+                x
+            x x x
+            """, """
+            x x x
+            x
+            x x x
+            x   x
+            x x x
+            """, """
+            x x x
+                x
+              x
+              x
+              x
+            """, """
+            x x x
+            x   x
+            x x x
+            x   x
+            x x x
+            """, """
+            x x x
+            x   x
+            x x x
+                x
+            x x x
+            """
+    };
 
     private static VBox root(String matrix) {
         VBox vbox = new VBox(5);
         String[] lines = matrix.split("\n");
         for (String line : lines) {
             HBox hbox = new HBox(5);
-            for (char c : line.toCharArray()) {
+            for (int i = 0; i < line.length(); i += 2) {
+                var c = line.charAt(i);
                 if (c == 'x') {
                     Rectangle rect = new Rectangle(20, 20, Color.BLUEVIOLET);
                     hbox.getChildren().add(rect);
@@ -36,7 +94,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Scene scene = new Scene(root(MATRIX), 300, 200);
+        Scene scene = new Scene(root(DIGITS[7]), 300, 200);
         primaryStage.setTitle("Uhr");
         primaryStage.setScene(scene);
         primaryStage.show();
