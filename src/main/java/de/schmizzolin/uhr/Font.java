@@ -151,6 +151,8 @@ public class Font {
                 var c = line.charAt(i);
                 if (c == 'x') {
                     Rectangle rect = new Rectangle(dotWidth, dotWidth, color);
+                    rect.setArcWidth(5);
+                    rect.setArcHeight(5);
                     hbox.getChildren().add(rect);
                 } else if (c == ' ' || c == '.') {
                     Rectangle rect = new Rectangle(dotWidth, dotWidth, Color.TRANSPARENT);
