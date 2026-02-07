@@ -1,10 +1,17 @@
 package de.schmizzolin.uhr;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.time.LocalTime;
 import java.util.Locale;
@@ -13,7 +20,13 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         Font font = Font.create(Color.WHITE);
-        javafx.scene.layout.StackPane root = new javafx.scene.layout.StackPane();
+        StackPane root = new StackPane();
+        root.setBorder(new Border(new BorderStroke(
+                Color.BLACK,
+                BorderStrokeStyle.SOLID,
+                null,
+                new BorderWidths(10)
+        )));
         movable(stage, root);
         Scene scene = new Scene(root, 360, 120);
         stage.setTitle("Uhr");
@@ -24,13 +37,13 @@ public class Main extends Application {
         stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
         stage.show();
 
-        javafx.animation.Timeline timeline = new javafx.animation.Timeline(
-                new javafx.animation.KeyFrame(javafx.util.Duration.seconds(0), e -> {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(0), e -> {
                     LocalTime time = LocalTime.now();
                     String str = String.format(Locale.GERMAN, "%02d:%02d", time.getHour(), time.getMinute());
                     root.getChildren().setAll(font.render(str));
                 }),
-                new javafx.animation.KeyFrame(javafx.util.Duration.seconds(1))
+                new KeyFrame(Duration.seconds(1))
         );
         timeline.setCycleCount(javafx.animation.Animation.INDEFINITE);
         timeline.play();
