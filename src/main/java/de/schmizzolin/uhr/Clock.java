@@ -32,9 +32,6 @@ public class Clock extends StackPane {
         this.widthProperty().addListener((obs, oldVal, newVal) -> {
             updateFont((Double) newVal);
         });
-        this.heightProperty().addListener((obs, oldVal, newVal) -> {
-            System.out.println("new height: " + newVal);
-        });
        refresh();
     }
 
