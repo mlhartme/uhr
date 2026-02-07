@@ -24,8 +24,8 @@ and from IntelliJ IDEA with VM options
 
 ## TODO
 
-* hide title bar
-* resize with fixed aspect ratio
+* toggle full screen
+* resize 
 * beautify dots
 * animate
 * fancy name

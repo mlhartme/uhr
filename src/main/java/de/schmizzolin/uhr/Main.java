@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -14,6 +15,7 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.time.LocalTime;
@@ -22,26 +24,27 @@ import java.util.Locale;
 public class Main extends Application {
     @Override
     public void start(Stage stage) {
-        Font font = Font.create(Color.WHITE);
         StackPane root = new StackPane();
         root.setStyle("-fx-background-color: black;");
+        root.setAlignment(Pos.CENTER);
         root.setBorder(new Border(new BorderStroke(
                 Color.BLACK,
                 BorderStrokeStyle.SOLID,
                 null,
                 new BorderWidths(10)
         )));
+
         Scene scene = new Scene(root, 360, 120);
         stage.setTitle("Uhr");
         scene.setFill(Color.BLACK);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setAlwaysOnTop(true);
-        stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
+        stage.initStyle(StageStyle.UNDECORATED);
 
         contextMenu(scene, root);
         movable(stage, root);
-        refresh(root, font);
+        refresh(root, Font.create(Color.WHITE));
 
         stage.show();
     }
@@ -61,9 +64,15 @@ public class Main extends Application {
 
     private void contextMenu(Scene scene, StackPane root) {
         var menu = new ContextMenu();
-        var item = new MenuItem("Quit");
-        item.setOnAction(e -> Platform.exit());
-        menu.getItems().addAll(item);
+        var fullscreen = new MenuItem("Fullscreen");
+        fullscreen.setOnAction(e -> {
+            Stage s = (Stage) root.getScene().getWindow();
+            s.setFullScreen(!s.isFullScreen());
+        });
+
+        var quit = new MenuItem("Quit");
+        quit.setOnAction(e -> Platform.exit());
+        menu.getItems().addAll(fullscreen, quit);
         scene.setOnContextMenuRequested(e -> menu.show(root, e.getScreenX(), e.getScreenY()));
     }
 
