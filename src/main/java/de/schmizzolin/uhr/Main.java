@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -64,6 +65,9 @@ public class Main extends Application {
 
     private void contextMenu(Scene scene, StackPane root) {
         var menu = new ContextMenu();
+        var title = new MenuItem("Uhr");
+        title.setDisable(true);
+
         var fullscreen = new MenuItem("Fullscreen");
         fullscreen.setOnAction(e -> {
             Stage s = (Stage) root.getScene().getWindow();
@@ -72,7 +76,7 @@ public class Main extends Application {
 
         var quit = new MenuItem("Quit");
         quit.setOnAction(e -> Platform.exit());
-        menu.getItems().addAll(fullscreen, quit);
+        menu.getItems().addAll(title, new SeparatorMenuItem(), fullscreen, quit);
         scene.setOnContextMenuRequested(e -> menu.show(root, e.getScreenX(), e.getScreenY()));
     }
 
