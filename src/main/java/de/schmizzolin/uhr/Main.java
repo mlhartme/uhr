@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -24,27 +25,27 @@ public class Main extends Application {
         stage.setAlwaysOnTop(true);
         stage.initStyle(StageStyle.UNDECORATED);
 
-        contextMenu(scene, clock);
+        contextMenu(scene);
         movable(stage, clock);
 
         stage.show();
     }
 
-    private void contextMenu(Scene scene, StackPane root) {
+    private void contextMenu(Scene scene) {
         var menu = new ContextMenu();
         var title = new MenuItem("Uhr");
         title.setDisable(true);
 
         var fullscreen = new MenuItem("Fullscreen");
         fullscreen.setOnAction(e -> {
-            Stage s = (Stage) root.getScene().getWindow();
+            Stage s = (Stage) scene.getWindow();
             s.setFullScreen(!s.isFullScreen());
         });
 
         var quit = new MenuItem("Quit");
         quit.setOnAction(e -> Platform.exit());
         menu.getItems().addAll(title, new SeparatorMenuItem(), fullscreen, quit);
-        scene.setOnContextMenuRequested(e -> menu.show(root, e.getScreenX(), e.getScreenY()));
+        scene.setOnContextMenuRequested(e -> menu.show(scene.getRoot(), e.getScreenX(), e.getScreenY()));
     }
 
     private void movable(Stage stage, StackPane root) {
