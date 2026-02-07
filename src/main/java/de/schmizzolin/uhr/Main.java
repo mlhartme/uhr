@@ -31,7 +31,6 @@ public class Main extends Application {
                 null,
                 new BorderWidths(10)
         )));
-        movable(stage, root);
         Scene scene = new Scene(root, 360, 120);
         stage.setTitle("Uhr");
         scene.setFill(Color.BLACK);
@@ -41,7 +40,13 @@ public class Main extends Application {
         stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
 
         contextMenu(scene, root);
+        movable(stage, root);
+        refresh(root, font);
 
+        stage.show();
+    }
+
+    private void refresh(StackPane root, Font font) {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(0), e -> {
                     LocalTime time = LocalTime.now();
@@ -52,8 +57,6 @@ public class Main extends Application {
         );
         timeline.setCycleCount(javafx.animation.Animation.INDEFINITE);
         timeline.play();
-
-        stage.show();
     }
 
     private void contextMenu(Scene scene, StackPane root) {
