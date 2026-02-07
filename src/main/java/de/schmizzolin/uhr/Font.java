@@ -81,8 +81,8 @@ public class Font {
             . . .
             """;
 
-    public static Font create(Color color) {
-        Font font = new Font(color, 20, 2, 8);
+    public static Font create(Color color, int dotWidth, int dotSpace, int charSpace) {
+        Font font = new Font(color, dotWidth, dotSpace, charSpace);
         font.add(':', COLON);
         for (int i = 0; i < DIGITS.length; i++) {
             font.add((char) ('0' + i), DIGITS[i]);

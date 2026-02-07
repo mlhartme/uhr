@@ -16,10 +16,10 @@ import java.util.Locale;
 
 // Beispiel für eine eigene Pane mit automatischer Aktualisierung
 public class Clock extends StackPane {
-    private final Font font;
+    private Font font;
 
     public Clock() {
-        this.font = Font.create(Color.WHITE);
+        updateFont(360);
         setAlignment(Pos.CENTER);
         setStyle("-fx-background-color: black;");
         setBorder(new Border(new BorderStroke(
@@ -28,7 +28,18 @@ public class Clock extends StackPane {
                 null,
                 new BorderWidths(10)
         )));
-        refresh();
+
+        this.widthProperty().addListener((obs, oldVal, newVal) -> {
+            updateFont((Double) newVal);
+        });
+        this.heightProperty().addListener((obs, oldVal, newVal) -> {
+            System.out.println("new height: " + newVal);
+        });
+       refresh();
+    }
+
+    private void updateFont(double width) {
+        this.font = Font.create(Color.WHITE, (int) (width / (5 * 3.5)), 2, 8);
     }
 
     private void refresh() {
