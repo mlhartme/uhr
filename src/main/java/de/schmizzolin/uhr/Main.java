@@ -26,7 +26,7 @@ public class Main extends Application {
         stage.initStyle(StageStyle.UNDECORATED);
 
         contextMenu(scene);
-        movable(stage);
+        movable(scene);
 
         stage.show();
     }
@@ -48,15 +48,15 @@ public class Main extends Application {
         scene.setOnContextMenuRequested(e -> menu.show(scene.getRoot(), e.getScreenX(), e.getScreenY()));
     }
 
-    private void movable(Stage stage) {
+    private void movable(Scene scene) {
         final double[] dragDelta = new double[2];
-        stage.getScene().setOnMousePressed(e -> {
-            dragDelta[0] = stage.getX() - e.getScreenX();
-            dragDelta[1] = stage.getY() - e.getScreenY();
+        scene.setOnMousePressed(e -> {
+            dragDelta[0] = scene.getWindow().getX() - e.getScreenX();
+            dragDelta[1] = scene.getWindow().getY() - e.getScreenY();
         });
-        stage.getScene().setOnMouseDragged(e -> {
-            stage.setX(e.getScreenX() + dragDelta[0]);
-            stage.setY(e.getScreenY() + dragDelta[1]);
+        scene.setOnMouseDragged(e -> {
+            scene.getWindow().setX(e.getScreenX() + dragDelta[0]);
+            scene.getWindow().setY(e.getScreenY() + dragDelta[1]);
         });
     }
 
