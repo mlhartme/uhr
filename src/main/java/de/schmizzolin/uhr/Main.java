@@ -3,7 +3,10 @@ package de.schmizzolin.uhr;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -21,6 +24,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         Font font = Font.create(Color.WHITE);
         StackPane root = new StackPane();
+        root.setStyle("-fx-background-color: black;");
         root.setBorder(new Border(new BorderStroke(
                 Color.BLACK,
                 BorderStrokeStyle.SOLID,
@@ -35,7 +39,8 @@ public class Main extends Application {
         stage.setResizable(false);
         stage.setAlwaysOnTop(true);
         stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
-        stage.show();
+
+        contextMenu(scene, root);
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(0), e -> {
@@ -47,6 +52,16 @@ public class Main extends Application {
         );
         timeline.setCycleCount(javafx.animation.Animation.INDEFINITE);
         timeline.play();
+
+        stage.show();
+    }
+
+    private void contextMenu(Scene scene, StackPane root) {
+        var menu = new ContextMenu();
+        var item = new MenuItem("Quit");
+        item.setOnAction(e -> Platform.exit());
+        menu.getItems().addAll(item);
+        scene.setOnContextMenuRequested(e -> menu.show(root, e.getScreenX(), e.getScreenY()));
     }
 
     private void movable(Stage stage, StackPane root) {
