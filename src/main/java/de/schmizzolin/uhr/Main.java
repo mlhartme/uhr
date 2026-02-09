@@ -20,9 +20,9 @@ public class Main extends Application {
         stage.setTitle("Uhr");
         scene.setFill(Color.BLACK);
         stage.setScene(scene);
-        stage.setResizable(false);
+        //stage.setResizable(false);
         stage.setAlwaysOnTop(true);
-        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setFullScreen(true);
 
         contextMenu(scene);
         movable(scene);
