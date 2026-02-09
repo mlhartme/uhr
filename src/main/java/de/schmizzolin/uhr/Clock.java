@@ -19,7 +19,7 @@ public class Clock extends StackPane {
     private Font font;
 
     public Clock() {
-        updateFont(360);
+        updateFont();
         setAlignment(Pos.CENTER);
         setStyle("-fx-background-color: black;");
         setBorder(new Border(new BorderStroke(
@@ -30,13 +30,23 @@ public class Clock extends StackPane {
         )));
 
         this.widthProperty().addListener((obs, oldVal, newVal) -> {
-            updateFont((Double) newVal);
+            updateFont();
+        });
+        this.heightProperty().addListener((obs, oldVal, newVal) -> {
+            updateFont();
         });
        refresh();
     }
 
-    private void updateFont(double width) {
-        this.font = Font.create(Color.WHITE, (int) (width / (5 * 3.5)), 2, 8);
+    private void updateFont() {
+        int dotSize;
+        // we have 5 characters, each of them with 3x5 dots -> display ration is 15:5
+        if (getWidth() / getHeight() > 15.0 / 5.0) {
+            dotSize = (int) (getHeight() / 5.0);
+        } else {
+            dotSize = (int) (getWidth() / 15.0);
+        }
+        this.font = Font.create(Color.WHITE, dotSize, 2, 8);
     }
 
     private void refresh() {

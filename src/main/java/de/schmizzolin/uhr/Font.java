@@ -9,6 +9,7 @@ import javafx.scene.shape.Rectangle;
 import java.util.HashMap;
 import java.util.Map;
 
+/* Charcters made from 3x5 dots */
 public class Font {
     private static final String[] DIGITS = { """
             x x x
@@ -26,7 +27,7 @@ public class Font {
             x x x
                 x
               x .
-            x . . 
+            x . .
             x x x
             """, """
             x x x
@@ -131,11 +132,11 @@ public class Font {
     }
 
     public Pane render(String str) {
-        HBox hbox = new HBox(charSpace);
+        HBox characters = new HBox(charSpace);
         for (int i = 0; i < str.length(); i++) {
-            hbox.getChildren().add(render(str.charAt(i)));
+            characters.getChildren().add(render(str.charAt(i)));
         }
-        return hbox;
+        return characters;
     }
 
     private Pane render(char character) {

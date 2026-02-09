@@ -24,7 +24,8 @@ and from IntelliJ IDEA with VM options
 
 ## TODO
 
-* toggle full screen
+* extract base class from clock that displays text
+* improve resize: make Clock a regular pain that craws children?
 * resize 
 * beautify dots
 * animate
