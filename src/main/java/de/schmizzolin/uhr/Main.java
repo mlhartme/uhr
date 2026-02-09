@@ -30,6 +30,8 @@ public class Main extends Application {
         stage.show();
     }
 
+    /* contextMenu that show up "onClicked". I avoid  "onContextMenuRequested" and the regular menur bar
+       because they behave differently on macOS and on touch screens  */
     private void contextMenu(Scene scene) {
         var menu = new ContextMenu();
         var title = new MenuItem("Uhr");
@@ -44,7 +46,7 @@ public class Main extends Application {
         var quit = new MenuItem("Quit");
         quit.setOnAction(e -> Platform.exit());
         menu.getItems().addAll(title, new SeparatorMenuItem(), fullscreen, quit);
-        scene.setOnContextMenuRequested(e -> menu.show(scene.getRoot(), e.getScreenX(), e.getScreenY()));
+        scene.setOnMouseClicked(e -> menu.show(scene.getRoot(), e.getScreenX(), e.getScreenY()));
     }
 
     private void movable(Scene scene) {
