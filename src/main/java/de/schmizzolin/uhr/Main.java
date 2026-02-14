@@ -9,7 +9,6 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class Main extends Application {
     @Override
@@ -20,7 +19,6 @@ public class Main extends Application {
         stage.setTitle("Uhr");
         scene.setFill(Color.BLACK);
         stage.setScene(scene);
-        //stage.setResizable(false);
         stage.setAlwaysOnTop(true);
         stage.setFullScreen(true);
 

@@ -4,6 +4,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 import java.util.HashMap;
@@ -82,8 +83,8 @@ public class Font {
             . . .
             """;
 
-    public static Font create(Color color, int dotWidth, int dotSpace, int charSpace) {
-        Font font = new Font(color, dotWidth, dotSpace, charSpace);
+    public static Font create(Color color, int dotWidth, int charSpace) {
+        Font font = new Font(color, dotWidth, charSpace);
         font.add(':', COLON);
         for (int i = 0; i < DIGITS.length; i++) {
             font.add((char) ('0' + i), DIGITS[i]);
@@ -97,11 +98,11 @@ public class Font {
     private final int dotSpace;
     private final int charSpace;
 
-    public Font(Color color, int dotWidth, int dotSpace, int charSpace) {
+    public Font(Color color, int dotWidth, int charSpace) {
         this.color = color;
         this.maps = new HashMap<>();
         this.dotWidth = dotWidth;
-        this.dotSpace = dotSpace;
+        this.dotSpace = Math.max(1, dotWidth / 40);
         this.charSpace = charSpace;
     }
 
@@ -140,23 +141,27 @@ public class Font {
     }
 
     private Pane render(char character) {
-        VBox vbox = new VBox(dotSpace);
+        VBox vbox = new VBox();
         String matrix = maps.get(character);
         if (matrix == null) {
             throw new IllegalArgumentException("unknown character: " + character);
         }
         String[] lines = matrix.split("\n");
         for (String line : lines) {
-            HBox hbox = new HBox(dotSpace);
+            HBox hbox = new HBox();
             for (int i = 0; i < line.length(); i += 2) {
                 var c = line.charAt(i);
                 if (c == 'x') {
                     Rectangle rect = new Rectangle(dotWidth, dotWidth, color);
+                    rect.setStrokeWidth(dotSpace);
+                    rect.setStroke(Color.TRANSPARENT);
                     rect.setArcWidth(5);
                     rect.setArcHeight(5);
                     hbox.getChildren().add(rect);
                 } else if (c == ' ' || c == '.') {
                     Rectangle rect = new Rectangle(dotWidth, dotWidth, Color.TRANSPARENT);
+                    rect.setStrokeWidth(dotSpace);
+                    rect.setStroke(Color.TRANSPARENT);
                     hbox.getChildren().add(rect);
                 }
             }

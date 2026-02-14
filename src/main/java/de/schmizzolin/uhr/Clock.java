@@ -46,7 +46,7 @@ public class Clock extends StackPane {
         } else {
             dotSize = (int) (getWidth() / 15.0);
         }
-        this.font = Font.create(Color.WHITE, dotSize, 2, 8);
+        this.font = Font.create(Color.WHITE, dotSize, 8);
     }
 
     private void refresh() {
